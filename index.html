@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nether Portal Calculator | Minecraft</title>
+    <meta name="keywords"
+        content="minecraft,nether,portal,hub,calculator,calculate,calculating,how,where,to,build,nether portal,linking,link,linked,obsidian,size,overworld,world,worlds,coordinate,coordinates,convert,converter,travel,traveling, 1.8, 1.9, 1.9.1, 1.9.2, 1.9.3, 1.9.4, 1.10, 1.10.1, 1.10.2, 1.11, 1.11.1, 1.11.2, 1.12, 1.12.1, 1.12.2, 1.13, 1.13.1, 1.13.2, 1.14, 1.14.1, 1.14.2, 1.14.3, 1.14.4, 1.15, 1.15.1, 1.15.2, 1.16, 1.16.1, 1.18, 1.18.2">
+    <meta name="description" content="Calculate the right coordinates for your nether hub!">
+    <link rel="shortcut icon" href="./src/images/nether-portal.gif" type="image/x-icon">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="./app/css/index.css">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CSS Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        minecraft: ['minecraftfont', 'sans-serif'],
+                        glyph: ['glyph', 'sans-serif'],
+                    },
+                    height: {
+                        '26': '6.25rem',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Webfonts -->
+    <link href="./src/fonts/minecraft-glyph/font.css" rel="stylesheet">
+    <link href="./src/fonts/minecraft-font/font.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body class="h-full">
+    <header class="flex items-start justify-between h-60 pt-12 px-12 relative">
+        <a class="text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 py-3 px-12 bg-zinc-300 hover:bg-zinc-400"
+            href=".">
+            <h1 class="font-minecraft tracking-wider text-lg">Nether Portal Calculator</h1>
+        </a>
+        <button id="hide-illustrations"
+            class="font-glyph tracking-wider text-lg text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 py-3 px-12 bg-zinc-300 hover:bg-zinc-400">Hide</button>
+        <div id="header__alert"
+            class="fixed flex flex-nowrap gap-4 top-12 left-1/2 -translate-x-1/2 transition-all px-12 py-4 hidden text-stone-700 ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 bg-zinc-300 z-40">
+            <span class="font-glyph text-xl">hello</span><span id="alert__message"
+                class="font-minecraft text-xl"></span><span class="font-glyph text-xl">there</span>
+        </div>
+    </header>
+    <main class="flex flex-col pt-16 px-32 pb-32">
+        <form id="main__form" class="flex justify-between gap-8 mb-32">
+            <div class="form__overworld flex flex-col items-center">
+                <h2 class="font-minecraft text-white text-xl tracking-wider">Overworld</h2>
+                <div class="img__spacing w-full h-12" style="display: none;"></div>
+                <img class="h-56 mb-4" src="./src/icons/overworld.svg" alt="">
+                <div class="flex gap-4 items-center mb-4">
+                    <div class="flex flex-col items-center gap-3">
+                        <label class="font-minecraft text-white text-lg" for="overworld-x">X</label>
+                        <input
+                            class="text-center py-2 font-minecraft text-lg w-full text-stone-700 focus:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 focus:border-t-zinc-600 focus:border-r-zinc-200 focus:border-b-zinc-200 focus:border-l-zinc-600 bg-zinc-300 focus:bg-zinc-400 focus:outline-0"
+                            type="number" name="overworld-x" id="overworld-x" value="0" placeholder="0">
+                    </div>
+                    <div class="flex flex-col items-center gap-3">
+                        <label class="font-minecraft text-white text-lg" for="overworld-y">Y</label>
+                        <input
+                            class="text-center py-2 font-minecraft text-lg w-full text-stone-700 focus:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 focus:border-t-zinc-600 focus:border-r-zinc-200 focus:border-b-zinc-200 focus:border-l-zinc-600 bg-zinc-300 focus:bg-zinc-400 focus:outline-0"
+                            type="number" name="overworld-y" id="overworld-y" value="64" placeholder="64">
+                    </div>
+                    <div class="flex flex-col items-center gap-3">
+                        <label class="font-minecraft text-white text-lg" for="overworld-z">Z</label>
+                        <input
+                            class="text-center py-2 font-minecraft text-lg w-full text-stone-700 focus:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 focus:border-t-zinc-600 focus:border-r-zinc-200 focus:border-b-zinc-200 focus:border-l-zinc-600 bg-zinc-300 focus:bg-zinc-400 focus:outline-0"
+                            type="number" name="overworld-z" id="overworld-z" value="0" placeholder="0">
+                    </div>
+                </div>
+                <button id="overworld__copy"
+                    class="font-minecraft text-lg py-2 w-full text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 py-3 px-12 bg-zinc-300 hover:bg-zinc-400">
+                    Copy Overworld Coords
+                </button>
+            </div>
+            <div id="form__control" class="flex flex-col justify-between items-center">
+                <span id="control__arrows"
+                    class="font-minecraft text-4xl text-white flex justify-center gap-2 ml-1 mt-28 pb-2">
+                    <span>&lt;</span>
+                    <span>&gt;</span>
+                </span>
+                <div class="flex flex-col items-center gap-4 w-56">
+                    <button id="control__reset"
+                        class="font-minecraft text-lg py-2 w-full text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 bg-zinc-300 hover:bg-zinc-400">
+                        Reset
+                    </button>
+                    <button id="control__save"
+                        class="font-minecraft text-lg py-2 w-full text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 bg-zinc-300 hover:bg-zinc-400">
+                        Save Coords
+                    </button>
+                </div>
+            </div>
+            <div class="form__nether flex flex-col items-center">
+                <h2 class="font-minecraft text-white text-xl tracking-wider">Nether</h2>
+                <div class="img__spacing w-full h-12" style="display: none;"></div>
+                <img class="h-56 mb-4" src="./src/icons/nether.svg" alt="">
+                <div class="flex gap-4 items-center mb-4">
+                    <div class="flex flex-col items-center gap-3">
+                        <label class="font-minecraft text-white text-lg" for="nether-x">X</label>
+                        <input
+                            class="text-center py-2 font-minecraft text-lg w-full text-stone-700 focus:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 focus:border-t-zinc-600 focus:border-r-zinc-200 focus:border-b-zinc-200 focus:border-l-zinc-600 bg-zinc-300 focus:bg-zinc-400 focus:outline-0"
+                            type="number" name="nether-x" id="nether-x" value="0" placeholder="0">
+                    </div>
+                    <div class="flex flex-col items-center gap-3">
+                        <label class="font-minecraft text-white text-lg" for="nether-y">Y</label>
+                        <input
+                            class="text-center py-2 font-minecraft text-lg w-full text-stone-700 focus:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 focus:border-t-zinc-600 focus:border-r-zinc-200 focus:border-b-zinc-200 focus:border-l-zinc-600 bg-zinc-300 focus:bg-zinc-400 focus:outline-0"
+                            type="number" name="nether-y" id="nether-y" value="64" placeholder="64">
+                    </div>
+                    <div class="flex flex-col items-center gap-3">
+                        <label class="font-minecraft text-white text-lg" for="nether-z">Z</label>
+                        <input
+                            class="text-center py-2 font-minecraft text-lg w-full text-stone-700 focus:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 focus:border-t-zinc-600 focus:border-r-zinc-200 focus:border-b-zinc-200 focus:border-l-zinc-600 bg-zinc-300 focus:bg-zinc-400 focus:outline-0"
+                            type="number" name="nether-z" id="nether-z" value="0" placeholder="0">
+                    </div>
+                </div>
+                <button id="nether__copy"
+                    class="font-minecraft text-lg py-2 w-full text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 py-3 px-12 bg-zinc-300 hover:bg-zinc-400">
+                    Copy Nether Coords
+                </button>
+            </div>
+        </form>
+        <div id="main__saved" class="flex flex-col justify-center items-center">
+            <h2 class="font-minecraft text-white text-xl tracking-wider">Saved Coordinates</h2>
+            <div class="img__spacing w-full h-12" style="display: none;"></div>
+            <img class="h-56 mb-8" src="./src/icons/saves.svg" alt="">
+            <div id="saved__data" class="flex flex-col justify-center items-center gap-4 w-full"></div>
+        </div>
+        <div id="main__title" class="fixed w-full h-full top-0 left-0 flex items-center justify-center z-10 hidden">
+            <div id="title__backdrop" class="absolute top-0 left-0 bg-black w-full h-full opacity-40 z-10"></div>
+            <form id="title__form" class="z-20 mx-32 w-full flex flex-col gap-4">
+                <label class="font-minecraft text-white text-xl" for="form__input">Title Your Coordinates</label>
+                <div class="flex">
+                    <input
+                        class="font-minecraft py-2 px-4 w-full text-xl text-stone-700 focus:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 focus:border-t-zinc-600 focus:border-r-zinc-200 focus:border-b-zinc-200 focus:border-l-zinc-600 bg-zinc-300 focus:bg-zinc-400 focus:outline-0"
+                        type="text" name="title" id="form__input" required>
+                    <button
+                        class="font-minecraft h-14 w-14 text-xl text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 bg-zinc-300 hover:bg-zinc-400">&gt;</button>
+                </div>
+            </form>
+        </div>
+        <div class="main__help flex justify-center items-center pt-32">
+            <h2 class="font-minecraft text-xl text-white">First Time? Have a read <a
+                    class="text-blue-500 underline decoration-2 underline-offset-2"
+                    href="https://minecraft.fandom.com/wiki/Tutorials/Nether_hub" target="_blank">here.</a></h2>
+        </div>
+    </main>
+    <div class="screen-filter w-full h-full fixed top-0 left-0 z-30"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="./app/js/index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+header {
+    background-color: #8632ca;
+    background: left / 300px auto repeat url("../../src/images/bg-purplewool.png");
+    &.active {
+        background: left / 320px auto repeat url("../../src/images/nether-portal.gif");
+    }
+    &::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 82px;
+        width: 100%;
+        margin-bottom: -1px;
+        background: left bottom / 760px auto repeat-x url("../../src/images/trans-bottom-darkwool.png");
+    }
+}
+
+body {
+    background: left 0 top -3px / 640px auto repeat url("../../src/images/bg-wool-dark.png");
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+.screen-filter {
+    user-select: none;
+    pointer-events: none;
+    backdrop-filter: invert(25%) sepia(80%) saturate(2303%) hue-rotate(261deg) brightness(84%) contrast(95%) opacity(0.1);
+}
+
+input {
+    &::-webkit-inner-spin-button, &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    &[type=number] {
+        -moz-appearance: textfield;
+    }
+}
