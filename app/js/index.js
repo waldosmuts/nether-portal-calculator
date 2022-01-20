@@ -44,9 +44,9 @@ $("#hide-illustrations").click(function (e) {
             $(this).animate({
                 opacity: 1
             }, 500);
+            $("#control__arrows").addClass("mt-28");
         });
         $(".img__spacing").slideUp("fast");
-        $("#control__arrows").addClass("mt-28");
     }
 });
 
@@ -114,7 +114,7 @@ $("#title__form").submit(function (e) {
 });
 
 // Saves Coords To Local Storage
-function saveCoords(saveTitle) {
+async function saveCoords(saveTitle) {
     // Creates New Save Object
     const newSave = {
         id: data.length,
@@ -125,7 +125,9 @@ function saveCoords(saveTitle) {
 
     // Adds Object To Array
     localStorage.setItem("coordSaves", JSON.stringify([...data, newSave]));
-    alertMe("Your Coords Have Been Saved");
+    $("#control__save").text("Saved");
+    await sleep(1000);
+    $("#control__save").text("Save Coords");
 
     // Gets New Array
     data = JSON.parse(window.localStorage.getItem("coordSaves"));
@@ -135,18 +137,24 @@ function saveCoords(saveTitle) {
 // Renders Saved Coordinates
 function renderSaves(data) {
     $("#saved__data").empty();
+    let saveTitle;
     for (let save of data) {
+        if (save.title.length > 15) {
+            saveTitle = `${save.title.slice(0, 15)}...`;
+        } else {
+            saveTitle = save.title;
+        }
         $("#saved__data").append(`
             <div class="flex items-center justify-between w-full py-4 pl-8 pr-4 ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 bg-zinc-300 text-stone-700">
-            <h3 class="font-minecraft text-xl">${save.title}</h3>
+            <h3 class="font-minecraft text-xl">${saveTitle}<span class="font-glyph ml-4 opacity-50">${save.title.replace(/[^A-z\s][\\\^\d]?/, "").slice(0, 10)}</span></h3>
             <div class="flex gap-6">
-                <div class="flex items-center gap-2 ring-4 px-8 h-14 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 bg-zinc-300">
+                <div onclick="copySavedCoords(${save.overworldCoords.join(", ")})" class="data__coords flex items-center gap-2 px-4 h-14 cursor-pointer hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 bg-zinc-300 hover:bg-zinc-400">
                     <h4 class="font-minecraft text-lg text-stone-700 mr-2">Overworld</h4>
                     <h5 class="font-minecraft text-stone-700"><span class="text-stone-500">X: </span>${save.overworldCoords[0]}</h5>
                     <h5 class="font-minecraft text-stone-700"><span class="text-stone-500">Y: </span>${save.overworldCoords[1]}</h5>
                     <h5 class="font-minecraft text-stone-700"><span class="text-stone-500">Z: </span>${save.overworldCoords[2]}</h5>
                 </div>
-                <div class="flex items-center gap-2 ring-4 px-8 h-14 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 bg-zinc-300">
+                <div onclick="copySavedCoords(${save.netherCoords.join(", ")})" class="data__coords flex items-center gap-2 px-4 h-14 cursor-pointer hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 bg-zinc-300 hover:bg-zinc-400">
                     <h4 class="font-minecraft text-lg text-stone-700 mr-2">Nether</h4>
                     <h5 class="font-minecraft text-stone-700"><span class="text-stone-500">X: </span>${save.netherCoords[0]}</h5>
                     <h5 class="font-minecraft text-stone-700"><span class="text-stone-500">Y: </span>${save.netherCoords[1]}</h5>
@@ -155,11 +163,26 @@ function renderSaves(data) {
             </div>
         </div>`);
     }
+    $(".data__coords").click(function (e) {
+        $(this).html("<span>Copied</span>");
+    });
+
 }
 
 // Resets Coords To Default Values
-$("#control__reset").click(function (e) {
+$("#control__reset").click(async function (e) {
     e.preventDefault();
+    const string = "Coords Reset";
+    $(this).text("");
+    $(this).removeClass("font-minecraft");
+    $(this).addClass("font-glyph");
+    for (let char of string) {
+        $(this).text(`${$(this).text()}${char}`);
+        await sleep(50);
+    }
+    $(this).text("Reset");
+    $(this).removeClass("font-glyph");
+    $(this).addClass("font-minecraft");
     $("#overworld-x").val(0);
     $("#overworld-y").val(64);
     $("#overworld-z").val(0);
@@ -171,30 +194,28 @@ $("#control__reset").click(function (e) {
 // Copies Overworld Coords To Clipboard
 $("#overworld__copy").click(function (e) {
     e.preventDefault();
+    alertCopy(this);
     navigator.clipboard.writeText(overworldCoords.join(", "));
-    alertMe("Overworld Coords Copied");
 });
 
 // Copies Nether Coords To Clipboard
 $("#nether__copy").click(function (e) {
     e.preventDefault();
+    alertCopy(this);
     navigator.clipboard.writeText(netherCoords.join(", "));
-    alertMe("Nether Coords Copied");
 });
 
-async function alertMe(message) {
-    if (!$("#header__alert").hasClass("hidden")) {
-        $("#header__alert").addClass("hidden -top-full");
-        $("#header__alert").removeClass("top-12");
-    }
-    $("#alert__message").text(message);
-    $("#header__alert").removeClass("hidden -top-full");
-    $("#header__alert").addClass("top-12");
-    await sleep(3000);
-    $("#header__alert").addClass("hidden -top-full");
-    $("#header__alert").removeClass("top-12");
+async function alertCopy(el) {
+    const copyText = $(el).children(".copy__text").text()
+    $(el).children(".copy__text").text("Copied");
+    await sleep(1000);
+    $(el).children(".copy__text").text(copyText);
 }
 
 async function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function copySavedCoords(x, y, z) {
+    navigator.clipboard.writeText(`${x}, ${y}, ${z}`);
 }

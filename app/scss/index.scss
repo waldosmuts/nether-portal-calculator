@@ -1,8 +1,9 @@
 header {
     background-color: #8632ca;
+    transition: background 6s;
     background: left / 300px auto repeat url("../../src/images/bg-purplewool.png");
     &.active {
-        background: left / 320px auto repeat url("../../src/images/nether-portal.gif");
+        background: center / 320px auto repeat url("../../src/images/nether-portal.gif");
     }
     &::after {
         content: "";

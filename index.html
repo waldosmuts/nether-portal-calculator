@@ -38,22 +38,27 @@
 
 <body class="h-full">
     <header class="flex items-start justify-between h-60 pt-12 px-12 relative">
-        <a class="text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 py-3 px-12 bg-zinc-300 hover:bg-zinc-400"
+        <a class="text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 py-3 px-12 bg-zinc-300 hover:bg-zinc-400 z-10"
             href=".">
             <h1 class="font-minecraft tracking-wider text-lg">Nether Portal Calculator</h1>
         </a>
         <button id="hide-illustrations"
-            class="font-glyph tracking-wider text-lg text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 py-3 px-12 bg-zinc-300 hover:bg-zinc-400">Hide</button>
-        <div id="header__alert"
+            class="font-glyph tracking-wider text-lg text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 py-3 px-12 bg-zinc-300 hover:bg-zinc-400 z-10">Hide</button>
+        <div id="header__backdrop"
+            class="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-violet-900 to-transparent">
+        </div>
+        <!-- <div id="header__alert"
             class="fixed flex flex-nowrap gap-4 top-12 left-1/2 -translate-x-1/2 transition-all px-12 py-4 hidden text-stone-700 ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 bg-zinc-300 z-40">
             <span class="font-glyph text-xl">hello</span><span id="alert__message"
                 class="font-minecraft text-xl"></span><span class="font-glyph text-xl">there</span>
-        </div>
+        </div> -->
     </header>
     <main class="flex flex-col pt-16 px-32 pb-32">
         <form id="main__form" class="flex justify-between gap-8 mb-32">
             <div class="form__overworld flex flex-col items-center">
-                <h2 class="font-minecraft text-white text-xl tracking-wider">Overworld</h2>
+                <h2 class="font-minecraft text-white text-xl tracking-wider"><span
+                        class="font-glyph mr-4 opacity-50">over</span>Overworld<span
+                        class="font-glyph ml-4 opacity-50">orld</span></h2>
                 <div class="img__spacing w-full h-12" style="display: none;"></div>
                 <img class="h-56 mb-4" src="./src/icons/overworld.svg" alt="">
                 <div class="flex gap-4 items-center mb-4">
@@ -77,8 +82,10 @@
                     </div>
                 </div>
                 <button id="overworld__copy"
-                    class="font-minecraft text-lg py-2 w-full text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 py-3 px-12 bg-zinc-300 hover:bg-zinc-400">
-                    Copy Overworld Coords
+                    class="font-minecraft text-lg py-2 w-full text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 py-3 bg-zinc-300 hover:bg-zinc-400">
+                    <span class="font-glyph mr-2 opacity-50">copyov</span>
+                    <span class="copy__text">Copy Overworld Coords</span>
+                    <span class="font-glyph ml-2 opacity-50">ords</span>
                 </button>
             </div>
             <div id="form__control" class="flex flex-col justify-between items-center">
@@ -89,17 +96,16 @@
                 </span>
                 <div class="flex flex-col items-center gap-4 w-56">
                     <button id="control__reset"
-                        class="font-minecraft text-lg py-2 w-full text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 bg-zinc-300 hover:bg-zinc-400">
-                        Reset
-                    </button>
+                        class="font-minecraft text-lg py-2 w-full text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 bg-zinc-300 hover:bg-zinc-400">Reset</button>
                     <button id="control__save"
-                        class="font-minecraft text-lg py-2 w-full text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 bg-zinc-300 hover:bg-zinc-400">
-                        Save Coords
-                    </button>
+                        class="font-minecraft text-lg py-2 w-full text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 bg-zinc-300 hover:bg-zinc-400">Save
+                        Coords</button>
                 </div>
             </div>
             <div class="form__nether flex flex-col items-center">
-                <h2 class="font-minecraft text-white text-xl tracking-wider">Nether</h2>
+                <h2 class="font-minecraft text-white text-xl tracking-wider"><span
+                        class="font-glyph mr-4 opacity-50">neth</span>Nether<span
+                        class="font-glyph ml-4 opacity-50">ther</span></h2>
                 <div class="img__spacing w-full h-12" style="display: none;"></div>
                 <img class="h-56 mb-4" src="./src/icons/nether.svg" alt="">
                 <div class="flex gap-4 items-center mb-4">
@@ -123,21 +129,26 @@
                     </div>
                 </div>
                 <button id="nether__copy"
-                    class="font-minecraft text-lg py-2 w-full text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 py-3 px-12 bg-zinc-300 hover:bg-zinc-400">
-                    Copy Nether Coords
+                    class="font-minecraft text-lg py-2 w-full text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 py-3 bg-zinc-300 hover:bg-zinc-400">
+                    <span class="font-glyph mr-2 opacity-50">nethe</span>
+                    <span class="copy__text">Copy Nether Coords</span>
+                    <span class="font-glyph ml-2 opacity-50">copyn</span>
                 </button>
             </div>
         </form>
         <div id="main__saved" class="flex flex-col justify-center items-center">
-            <h2 class="font-minecraft text-white text-xl tracking-wider">Saved Coordinates</h2>
+            <h2 class="font-minecraft text-white text-xl tracking-wider"><span
+                    class="font-glyph mr-4 opacity-50">saved</span>Saved Coordinates<span
+                    class="font-glyph ml-4 opacity-50">oords</span></h2>
             <div class="img__spacing w-full h-12" style="display: none;"></div>
             <img class="h-56 mb-8" src="./src/icons/saves.svg" alt="">
             <div id="saved__data" class="flex flex-col justify-center items-center gap-4 w-full"></div>
         </div>
         <div id="main__title" class="fixed w-full h-full top-0 left-0 flex items-center justify-center z-10 hidden">
-            <div id="title__backdrop" class="absolute top-0 left-0 bg-black w-full h-full opacity-40 z-10"></div>
+            <div id="title__backdrop" class="absolute top-0 left-0 bg-black w-full h-full opacity-80 z-10"></div>
             <form id="title__form" class="z-20 mx-32 w-full flex flex-col gap-4">
-                <label class="font-minecraft text-white text-xl" for="form__input">Title Your Coordinates</label>
+                <label class="font-minecraft text-white text-xl" for="form__input">Title Your Coordinates<span
+                        class="font-glyph ml-4 opacity-50">title your coords</span></label>
                 <div class="flex">
                     <input
                         class="font-minecraft py-2 px-4 w-full text-xl text-stone-700 focus:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 focus:border-t-zinc-600 focus:border-r-zinc-200 focus:border-b-zinc-200 focus:border-l-zinc-600 bg-zinc-300 focus:bg-zinc-400 focus:outline-0"
@@ -148,9 +159,10 @@
             </form>
         </div>
         <div class="main__help flex justify-center items-center pt-32">
-            <h2 class="font-minecraft text-xl text-white">First Time? Have a read <a
-                    class="text-blue-500 underline decoration-2 underline-offset-2"
-                    href="https://minecraft.fandom.com/wiki/Tutorials/Nether_hub" target="_blank">here.</a></h2>
+            <h2 class="font-minecraft text-xl text-white"><span class="font-glyph mr-4 opacity-50">firs</span>First
+                Time? Have a read <a class="text-blue-500 underline decoration-4 underline-offset-2"
+                    href="https://minecraft.fandom.com/wiki/Tutorials/Nether_hub" target="_blank">here.</a><span
+                    class="font-glyph ml-2 opacity-50">time</span></h2>
         </div>
     </main>
     <div class="screen-filter w-full h-full fixed top-0 left-0 z-30"></div>
