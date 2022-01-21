@@ -48,4 +48,13 @@ input::-webkit-inner-spin-button, input::-webkit-outer-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+.glyph-glow {
+  text-shadow: 0 0 7px #8632ca, 0 0 10px #8632ca, 0 0 21px #8632ca, 0 0 42px #8632ca, 0 0 82px #51306b, 0 0 92px #51306b, 0 0 102px #51306b, 0 0 151px #51306b;
+}
+
+.help__link:hover {
+  color: #8632ca;
+  text-shadow: 0 0 7px #8632ca, 0 0 10px #8632ca, 0 0 21px #8632ca, 0 0 42px #8632ca, 0 0 82px #51306b, 0 0 92px #51306b, 0 0 102px #51306b, 0 0 151px #51306b;
+}
 /*# sourceMappingURL=index.css.map */

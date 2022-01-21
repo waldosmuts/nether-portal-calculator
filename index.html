@@ -43,19 +43,14 @@
             <h1 class="font-minecraft tracking-wider text-lg">Nether Portal Calculator</h1>
         </a>
         <button id="hide-illustrations"
-            class="font-glyph tracking-wider text-lg text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 py-3 px-12 bg-zinc-300 hover:bg-zinc-400 z-10">Hide</button>
+            class="font-glyph tracking-wider text-lg text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 py-3 px-6 bg-zinc-300 hover:bg-zinc-400 z-10">Hide</button>
         <div id="header__backdrop"
-            class="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-violet-900 to-transparent">
+            class="absolute top-0 left-0 w-full h-40 bg-gradient-to-b from-purple-900 to-transparent">
         </div>
-        <!-- <div id="header__alert"
-            class="fixed flex flex-nowrap gap-4 top-12 left-1/2 -translate-x-1/2 transition-all px-12 py-4 hidden text-stone-700 ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 bg-zinc-300 z-40">
-            <span class="font-glyph text-xl">hello</span><span id="alert__message"
-                class="font-minecraft text-xl"></span><span class="font-glyph text-xl">there</span>
-        </div> -->
     </header>
     <main class="flex flex-col pt-16 px-32 pb-32">
         <form id="main__form" class="flex justify-between gap-8 mb-32">
-            <div class="form__overworld flex flex-col items-center">
+            <div class="form__overworld flex flex-col items-center pt-2">
                 <h2 class="font-minecraft text-white text-xl tracking-wider"><span
                         class="font-glyph mr-4 opacity-50">over</span>Overworld<span
                         class="font-glyph ml-4 opacity-50">orld</span></h2>
@@ -90,8 +85,9 @@
             </div>
             <div id="form__control" class="flex flex-col justify-between items-center">
                 <span id="control__arrows"
-                    class="font-minecraft text-4xl text-white flex justify-center gap-2 ml-1 mt-28 pb-2">
+                    class="font-minecraft text-4xl text-white flex justify-center items-center gap-2 ml-1 mt-28 pb-2">
                     <span>&lt;</span>
+                    <span id="arrows__glyphs" class="font-glyph text-2xl opacity-50 transition-all">trxnslxte</span>
                     <span>&gt;</span>
                 </span>
                 <div class="flex flex-col items-center gap-4 w-56">
@@ -102,7 +98,7 @@
                         Coords</button>
                 </div>
             </div>
-            <div class="form__nether flex flex-col items-center">
+            <div class="form__nether flex flex-col items-center pt-2">
                 <h2 class="font-minecraft text-white text-xl tracking-wider"><span
                         class="font-glyph mr-4 opacity-50">neth</span>Nether<span
                         class="font-glyph ml-4 opacity-50">ther</span></h2>
@@ -143,6 +139,25 @@
             <div class="img__spacing w-full h-12" style="display: none;"></div>
             <img class="h-56 mb-8" src="./src/icons/saves.svg" alt="">
             <div id="saved__data" class="flex flex-col justify-center items-center gap-4 w-full"></div>
+            <div id="saved__confirmation"
+                class="fixed w-full h-full top-0 left-0 flex items-center justify-center z-10 hidden">
+                <div id="confirmation__backdrop" class="absolute top-0 left-0 bg-black w-full h-full opacity-80 z-10">
+                </div>
+                <div id="confirmation__modal"
+                    class="z-20 mx-32 py-6 px-12 w-full flex flex-col gap-8 text-stone-700 ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 bg-zinc-300">
+                    <span class="font-minecraft text-xl text-center">
+                        <span class="font-glyph mr-4 opacity-50">remove</span>
+                        <span>Are You Sure You Want To Delete Those Coords?</span>
+                        <span class="font-glyph ml-4 opacity-50">delete</span>
+                    </span>
+                    <div class="flex gap-4 font-minecraft text-xl">
+                        <button id="modal__confirm"
+                            class="py-2 w-full text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 bg-zinc-300 hover:bg-zinc-400">Delete</button>
+                        <button id="modal__cancel"
+                            class="py-2 w-full text-stone-700 hover:text-white ring-4 ring-zinc-900 border-4 border-t-zinc-200 border-l-zinc-200 border-r-zinc-600 border-b-zinc-600 hover:border-t-zinc-600 hover:border-r-zinc-200 hover:border-b-zinc-200 hover:border-l-zinc-600 bg-zinc-300 hover:bg-zinc-400">Cancel</button>
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="main__title" class="fixed w-full h-full top-0 left-0 flex items-center justify-center z-10 hidden">
             <div id="title__backdrop" class="absolute top-0 left-0 bg-black w-full h-full opacity-80 z-10"></div>
@@ -160,7 +175,7 @@
         </div>
         <div class="main__help flex justify-center items-center pt-32">
             <h2 class="font-minecraft text-xl text-white"><span class="font-glyph mr-4 opacity-50">firs</span>First
-                Time? Have a read <a class="text-blue-500 underline decoration-4 underline-offset-2"
+                Time? Have a read <a class="help__link transition-all underline decoration-4 underline-offset-2"
                     href="https://minecraft.fandom.com/wiki/Tutorials/Nether_hub" target="_blank">here.</a><span
                     class="font-glyph ml-2 opacity-50">time</span></h2>
         </div>
